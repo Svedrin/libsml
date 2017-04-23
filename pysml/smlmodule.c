@@ -60,7 +60,7 @@ void transport_receiver(unsigned char *buffer, size_t buffer_len) {
 
 
 
-static PyObject* py_sml_transport_listen(PyObject* args){
+static PyObject* py_sml_transport_listen(PyObject* self, PyObject* args){
     int fd;
     PyObject *cb;
 
