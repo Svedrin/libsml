@@ -15,6 +15,7 @@ setup(
 	version = '1.0',
 	description = "Python module to interface libsml",
 	ext_modules = [ffmpegmodule],
+	scripts     = ["../examples/ehzpoll"],
 	author="Michael Ziegler",
 	author_email='diese-addy@funzt-halt.net'
 )
