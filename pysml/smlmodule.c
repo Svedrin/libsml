@@ -16,6 +16,7 @@
 
 
 PyObject *callback;
+PyThreadState *thrstate;
 
 
 void transport_receiver(unsigned char *buffer, size_t buffer_len) {
@@ -53,8 +54,10 @@ void transport_receiver(unsigned char *buffer, size_t buffer_len) {
     if( vals != NULL ){
         PyObject *args = PyTuple_New(1);
         PyTuple_SetItem(args, 0, vals);
+        PyEval_RestoreThread(thrstate); /* acquire GIL */
         PyObject_CallObject(callback, args);
         Py_DECREF(args);
+        thrstate = PyEval_SaveThread(); /* release GIL */
     }
 }
 
@@ -75,7 +78,10 @@ static PyObject* py_sml_transport_listen(PyObject* self, PyObject* args){
 
     callback = cb;
     Py_INCREF(cb);
+
+    thrstate = PyEval_SaveThread(); /* release GIL */
     sml_transport_listen(fd, &transport_receiver);
+    PyEval_RestoreThread(thrstate); /* acquire GIL */
 
     Py_RETURN_TRUE;
 }
