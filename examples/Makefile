@@ -7,8 +7,8 @@ ifeq ($(UNAME), Linux)
 LIBS = -luuid
 endif
 
-sml_server : $(OBJS) $(LIBSML)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(LIBSML) -o sml_server
+sml_server : $(OBJS) $(LIBSML) sml_server.c
+	$(CC) $(CFLAGS) $(OBJS) $(LIBSML) $(LIBS) -o sml_server
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $^ -o $@
