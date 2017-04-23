@@ -39,7 +39,7 @@ void transport_receiver(unsigned char *buffer, size_t buffer_len) {
                 pyentry = PyTuple_New(2);
                 PyTuple_SetItem(pyentry, 0, PyString_FromStringAndSize(
                     (const char *)entry->obj_name->str, entry->obj_name->len ));
-                PyTuple_SetItem(pyentry, 0, PyFloat_FromDouble( current ));
+                PyTuple_SetItem(pyentry, 1, PyFloat_FromDouble( current ));
                 PyList_Append(vals, pyentry);
                 Py_DECREF(pyentry);
             }
